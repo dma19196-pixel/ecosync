@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="EcoSync Portal - Smart Campus Ecocode & Action Hub. Interactive platform for environmental awareness and sustainable living.">
+    <meta name="keywords" content="environment, sustainability, eco-friendly, climate action, UN ActNow">
+    <title>EcoSync Portal | Smart Campus Ecocode</title>
+    
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: linear-gradient(135deg, #f0f4f1 0%, #e8f5e9 100%);
+            color: #333; 
+            padding: 15px; 
+            max-width: 900px; 
+            margin: auto; 
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .card { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+            margin-bottom: 20px; 
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 { 
+            color: #2e7d32; 
+            font-size: 32px; 
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666; 
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+        
+        h2 { 
+            color: #2e7d32; 
+            font-size: 22px; 
+            border-bottom: 3px solid #e8f5e9; 
+            padding-bottom: 10px; 
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+        
+        h3 { 
+            color: #1b5e20; 
+            font-size: 18px; 
+            margin-top: 15px; 
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        p, li { 
+            font-size: 15px; 
+            line-height: 1.7; 
+            margin-bottom: 12px; 
+        }
+        
+        ul {
+            margin-left: 20px;
+        }
+        
+        button { 
+            background: #2e7d32; 
+            color: white; 
+            border: none; 
+            padding: 12px 20px; 
+            width: 100%; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            margin-top: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover { 
+            background: #1b5e20;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Game Styling */
+        .game-box { 
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f6 100%);
+            padding: 20px; 
+            border-radius: 8px; 
+            text-align: center; 
+            margin-top: 15px;
+            border: 2px solid #c8e6c9;
+        }
+        
+        .choice-btn { 
+            background: #4caf50; 
+            margin: 8px 0;
+            font-weight: 600;
+        }
+        
+        .choice-btn:hover {
+            background: #388e3c;
+        }
+        
+        .choice-btn.recycle {
+            background: #4caf50;
+        }
+        
+        .choice-btn.trash {
+            background: #d32f2f;
+        }
+        
+        /* Environmental Rules Section */
+        .rule-item { 
+            background: linear-gradient(135deg, #f9f9f9 0%, #f5f5f5 100%);
+            padding: 15px; 
+            border-left: 5px solid #2e7d32; 
+            margin-bottom: 18px; 
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .rule-item:hover {
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .rule-content { 
+            display: flex; 
+            gap: 15px; 
+            align-items: flex-start; 
+        }
+        
+        .rule-text { 
+            flex: 1; 
+        }
+        
+        .rule-image { 
+            flex: 0 0 140px; 
+        }
+        
+        .rule-image img { 
+            width: 140px; 
+            height: 140px; 
+            object-fit: cover; 
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .carbon-reduction { 
+            background: #c8e6c9;
+            padding: 10px 12px; 
+            border-radius: 6px; 
+            margin-top: 10px; 
+            font-size: 14px; 
+            color: #1b5e20; 
+            font-weight: 700;
+            border-left: 3px solid #2e7d32;
+        }
+        
+        /* Game Display */
+        #question {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #1b5e20;
+        }
+        
+        #options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        #options button {
+            margin: 0;
+        }
+        
+        .score-display {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin: 15px 0;
+        }
+        
+        .completion-message {
+            text-align: center;
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            
+            h2 {
+                font-size: 18px;
+            }
+            
+            .rule-content { 
+                flex-direction: column; 
+            }
+            
+            .rule-image {
+                flex: 0 0 auto;
+            }
+            
+            .rule-image img { 
+                width: 100%; 
+                height: auto;
+            }
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            font-size: 14px;
+            border-top: 2px solid #e8f5e9;
+            margin-top: 40px;
+        }
+        
+        .footer a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1>🌱 EcoSync Portal</h1>
+        <p class="subtitle">Your Campus Smart Ecocode & Action Hub</p>
+        <p class="subtitle" style="font-size: 13px; margin-top: 8px; color: #888;">Inspired by UN ActNow for a sustainable future</p>
+    </header>
+
+    <!-- SECTION 1: THE SCHOOL ECOCODE RULES -->
+    <section class="card">
+        <h2>1. The School Ecocode (UN ActNow Inspired)</h2>
+        <p>Our commitment to environmental sustainability on campus:</p>
+        <ul>
+            <li><strong>Save Energy at School:</strong> Turn off lights, monitors, and air conditioning when leaving classrooms.</li>
+            <li><strong>Zero Single-Use Plastic:</strong> Bring reusable bottles and containers daily to cut plastic waste.</li>
+            <li><strong>Digital Minimalism:</strong> Prioritize paperless assignments to protect forests and reduce resource drain.</li>
+            <li><strong>Sustainable Food Choices:</strong> Minimize food waste in the school cafeteria.</li>
+        </ul>
+    </section>
+
+    <!-- SECTION 2: ENVIRONMENTAL RULES FROM UN ACTNOW -->
+    <section class="card">
+        <h2>2. 12 UN ActNow Environmental Rules to Preserve Our Planet</h2>
+        
+        <!-- Rule 1 -->
+        <article class="rule-item">
+            <h3>💡 Save Energy at Home</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>Much of our electricity and heat are powered by coal, oil and gas. Use less energy by reducing your heating and cooling use, switching to LED light bulbs and energy-efficient electric appliances, washing your laundry with cold water, or hanging things to dry instead of using a dryer. Improving your home's energy efficiency can make a significant impact.</p>
+                    <div class="carbon-reduction">↓ Up to 900 kg CO2e per year</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image1.png" alt="Save energy - Electric plug being disconnected">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 2 -->
+        <article class="rule-item">
+            <h3>⚡ Change Your Home's Source of Energy</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>Ask your utility company if your home energy comes from oil, coal or gas. If possible, switch to renewable sources such as wind or solar. Or install solar panels on your roof to generate energy for your home. Switching to renewable energy is key to tackling the climate crisis.</p>
+                    <div class="carbon-reduction">↓ Up to 1.5 tons CO2e per year</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image2.png" alt="Renewable energy - Windmill">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 3 -->
+        <article class="rule-item">
+            <h3>🚴 Walk, Bike or Take Public Transport</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>The world's roadways are clogged with vehicles, most burning diesel or gasoline. Walking or riding a bike will reduce greenhouse gas emissions and help your health and fitness. For longer distances, take a train or bus. Carpool whenever possible.</p>
+                    <div class="carbon-reduction">↓ Up to 2 tons CO2e per year (car-free)</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image3.png" alt="Sustainable transport - Person riding a bike">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 4 -->
+        <article class="rule-item">
+            <h3>🔌 Switch to an Electric Vehicle</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>If you plan to buy a car, consider going electric with more affordable models coming to market. Electric cars cause significantly fewer greenhouse gas emissions than gas or diesel-powered vehicles. A hybrid vehicle is also a good alternative.</p>
+                    <div class="carbon-reduction">↓ Up to 2 tons CO2e per year (EV) or 700 kg (hybrid)</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image4.png" alt="Electric vehicle with charging plug">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 5 -->
+        <article class="rule-item">
+            <h3>✈️ Consider Your Travel</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>Airplanes burn large amounts of fossil fuels, producing significant greenhouse gas emissions. Taking fewer flights is one of the fastest ways to reduce your environmental impact. When you can, meet virtually, take a train, or skip that long-distance trip.</p>
+                    <div class="carbon-reduction">↓ Up to 2 tons CO2e per year (fewer long flights)</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image5.png" alt="Sustainable travel - Train with person celebrating">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 6 -->
+        <article class="rule-item">
+            <h3>♻️ Reduce, Reuse, Repair and Recycle</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>Buy fewer things, shop second-hand, and repair what you can. Electronics, clothes, and plastics cause emissions at each production point. Less than 10% of plastic is recycled, and it can linger for hundreds of years. Every kilogram of textiles produced generates about 17 kg of CO2e.</p>
+                    <div class="carbon-reduction">↓ Significant impact by reducing consumption</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image6.png" alt="Recycling - Three leaves with recycling symbol">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 7 -->
+        <article class="rule-item">
+            <h3>🥗 Eat More Vegetables</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>Eating more vegetables, fruits, whole grains, legumes, nuts, and seeds, and less meat and dairy, can significantly lower your environmental impact. Plant-based foods require less energy, land, and water to produce.</p>
+                    <div class="carbon-reduction">↓ 500 kg CO2e (vegetarian) to 900 kg (vegan) per year</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image7.png" alt="Healthy eating - Fork and carrot">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 8 -->
+        <article class="rule-item">
+            <h3>🍴 Throw Away Less Food</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>When you throw food away, you waste the resources and energy used to grow, produce, package, and transport it. Rotting food in landfills produces methane, a powerful greenhouse gas. Purchase only what you need and compost leftovers.</p>
+                    <div class="carbon-reduction">↓ Up to 300 kg CO2e per year</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image8.png" alt="Food waste - Person eating with napkin">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 9 -->
+        <article class="rule-item">
+            <h3>🌱 Plant Native Species</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>If you have a garden, check for native species. Replace non-natives, especially invasive ones. Plants, animals and insects depend on each other. Most insects won't eat non-native plants, which means birds and other species lose food sources. Even a single tree can offer refuge.</p>
+                    <div class="carbon-reduction">↓ Supports local biodiversity</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image9.jpeg" alt="Native plants - Arms around vase of green plants">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 10 -->
+        <article class="rule-item">
+            <h3>🧹 Clean Up Your Environment</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>Humans, animals and plants suffer from land and water contaminated by improperly discarded garbage. Dispose of waste properly and educate others. Participate in local clean-ups of parks, rivers, beaches and beyond. About a third of the 2 billion tons of trash thrown yearly causes environmental harm.</p>
+                    <div class="carbon-reduction">↓ Protects ecosystems</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image10.jpeg" alt="Environmental cleanup - Person holding trash bag">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 11 -->
+        <article class="rule-item">
+            <h3>💳 Make Your Money Count</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>Everything you spend money on affects the planet. Choose products from companies who use resources responsibly and are committed to cutting emissions and waste. Ensure your savings are invested in environmentally sustainable businesses.</p>
+                    <div class="carbon-reduction">↓ Multiplies environmental impact</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image11.png" alt="Sustainable shopping - Shopping cart with plant">
+                </div>
+            </div>
+        </article>
+
+        <!-- Rule 12 -->
+        <article class="rule-item">
+            <h3>📢 Speak Up</h3>
+            <div class="rule-content">
+                <div class="rule-text">
+                    <p>Speak up and get others to join in taking action. Talk to neighbors, colleagues, friends, and family. Let business owners know you support bold changes. Appeal to leaders to act now. Climate action is a task for all of us and concerns all of us. No one can do it all alone, but we can do it together.</p>
+                    <div class="carbon-reduction">↓ Accelerates collective action</div>
+                </div>
+                <div class="rule-image">
+                    <img src="image12.png" alt="Speaking up - Person holding megaphone">
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- SECTION 3: AI CHALLENGE GIVER -->
+    <section class="card">
+        <h2>3. 🎯 AI Daily Eco-Challenge</h2>
+        <p>Click below to generate a random challenge tailored for today:</p>
+        <button onclick="generateChallenge()">🎲 Get AI Challenge</button>
+        <p id="challengeText" style="font-weight: bold; color: #2e7d32; margin-top: 15px; text-align: center; min-height: 30px;"></p>
+    </section>
+
+    <!-- SECTION 4: GAME 1 - ECOLOGY TRIVIA CARD GAME -->
+    <section class="card">
+        <h2>4. 🧠 Game 1: Eco-Trivia Card Game</h2>
+        <div id="triviaBox">
+            <p id="question" style="font-weight: bold;"></p>
+            <div id="options"></div>
+            <p id="triviaScore" style="margin-top: 10px; font-size: 14px; color: #666;"></p>
+        </div>
+    </section>
+
+    <!-- SECTION 5: GAME 2 - CASUAL RAPID SORTING GAME -->
+    <section class="card">
+        <h2>5. ♻️ Game 2: Quick Eco-Sort Arcade</h2>
+        <div class="game-box">
+            <p id="itemToSwipe" style="font-size: 18px; font-weight: bold; color: #1b5e20;">Item: Loading...</p>
+            <button class="choice-btn recycle" onclick="sortItem('recycle')">♻️ Recycle Bin</button>
+            <button class="choice-btn trash" onclick="sortItem('trash')">🗑️ General Waste</button>
+            <p id="arcadeScore" class="score-display">Score: 0</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>🌍 Made with 💚 for a sustainable planet</p>
+        <p>Inspired by <a href="https://www.un.org/en/actnow" target="_blank" rel="noopener noreferrer">UN ActNow</a> • Learn more about <a href="https://www.un.org/en/climatechange" target="_blank" rel="noopener noreferrer">Climate Action</a></p>
+    </footer>
+
+    <script>
+        // ==========================================
+        // AI Challenge Generator Logic
+        // ==========================================
+        const challenges = [
+            "Today's AI Challenge: Go completely paperless for all your notes today! 📄➡️💻",
+            "Today's AI Challenge: Persuade one friend to switch to a reusable water bottle. 💧",
+            "Today's AI Challenge: Unplug all unused chargers and electronics in your room. 🔌",
+            "Today's AI Challenge: Audit your classroom's energy use and switch off empty lights. 💡",
+            "Today's AI Challenge: Choose public transport or bike instead of a car today! 🚌🚴",
+            "Today's AI Challenge: Eat a plant-based meal for lunch today. 🥗",
+            "Today's AI Challenge: Identify 3 items to recycle at home and sort them properly. ♻️",
+            "Today's AI Challenge: Plant a native species or care for an existing plant. 🌱",
+            "Today's AI Challenge: Reduce your screen time and spend 30 minutes outdoors. 🌳",
+            "Today's AI Challenge: Check product labels and choose sustainable options. 🏷️"
+        ];
+
+        function generateChallenge() {
+            const randomIdx = Math.floor(Math.random() * challenges.length);
+            document.getElementById("challengeText").innerText = challenges[randomIdx];
+        }
+
+        // ==========================================
+        // Game 1: Trivia Card Logic
+        // ==========================================
+        const triviaData = [
+            { q: "Which gas is primarily responsible for global climate warming?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen"], correct: 1 },
+            { q: "Roughly how long does a standard plastic bottle take to decompose?", options: ["10 years", "50 years", "450+ years"], correct: 2 },
+            { q: "What is a major benefit of digital minimalism for the environment?", options: ["Saves server energy & reduces e-waste", "Cleans oceans directly", "Stops rain"], correct: 0 },
+            { q: "How much CO2e can you save annually by eating vegetarian?", options: ["100 kg", "500 kg", "1000 kg"], correct: 1 },
+            { q: "What is the primary cause of plastic pollution?", options: ["Recycling failures", "Single-use plastics", "Ocean currents"], correct: 1 },
+            { q: "Which activity reduces your carbon footprint the most?", options: ["Taking fewer flights", "Using LED bulbs", "Recycling"], correct: 0 }
+        ];
+
+        let currentTrivia = 0;
+        let scoreTrivia = 0;
+
+        function loadTrivia() {
+            if (currentTrivia < triviaData.length) {
+                let data = triviaData[currentTrivia];
+                document.getElementById("question").innerText = `Q${currentTrivia + 1}: ${data.q}`;
+                let optionsHtml = "";
+                data.options.forEach((opt, index) => {
+                    optionsHtml += `<button onclick="checkTrivia(${index})">${opt}</button>`;
+                });
+                document.getElementById("options").innerHTML = optionsHtml;
+                document.getElementById("triviaScore").innerText = `Score: ${scoreTrivia}/${triviaData.length}`;
+            } else {
+                const percentage = Math.round((scoreTrivia / triviaData.length) * 100);
+                document.getElementById("triviaBox").innerHTML = `<div class="completion-message">🎉 Trivia Completed!<br>Final Score: ${scoreTrivia}/${triviaData.length} (${percentage}%)</div>`;
+            }
+        }
+
+        function checkTrivia(selected) {
+            if (selected === triviaData[currentTrivia].correct) {
+                scoreTrivia++;
+            }
+            currentTrivia++;
+            loadTrivia();
+        }
+
+        // ==========================================
+        // Game 2: Quick Casual Sorting Arcade Logic
+        // ==========================================
+        const items = [
+            { name: "Plastic Bottle", type: "recycle" },
+            { name: "Banana Peel", type: "trash" },
+            { name: "Cardboard Box", type: "recycle" },
+            { name: "Used Tissue", type: "trash" },
+            { name: "Aluminum Soda Can", type: "recycle" },
+            { name: "Coffee Grounds", type: "trash" },
+            { name: "Glass Jar", type: "recycle" },
+            { name: "Plastic Bag", type: "recycle" },
+            { name: "Paper Towel", type: "trash" },
+            { name: "Steel Can", type: "recycle" }
+        ];
+
+        let currentItemIndex = 0;
+        let arcadeScore = 0;
+
+        function nextItem() {
+            currentItemIndex = Math.floor(Math.random() * items.length);
+            document.getElementById("itemToSwipe").innerText = `Item: ${items[currentItemIndex].name}`;
+        }
+
+        function sortItem(userChoice) {
+            if (items[currentItemIndex].type === userChoice) {
+                arcadeScore += 10;
+                document.getElementById("itemToSwipe").style.color = "#2e7d32";
+            } else {
+                arcadeScore = Math.max(0, arcadeScore - 5);
+                document.getElementById("itemToSwipe").style.color = "#d32f2f";
+            }
+            document.getElementById("arcadeScore").innerText = `Score: ${arcadeScore}`;
+            setTimeout(() => {
+                document.getElementById("itemToSwipe").style.color = "#1b5e20";
+                nextItem();
+            }, 300);
+        }
+
+        // Initialize on page load
+        loadTrivia();
+        nextItem();
+    </script>
+</body>
+</html>
